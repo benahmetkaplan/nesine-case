@@ -83,14 +83,11 @@ function App() {
               </li>
             ))}
             <li>
-              Toplam Oran: <strong>{totalOdds} TL</strong>&emsp;
-              Misli: &emsp;
-              <select value={misli} onChange={handleMisliChange}>
-                {Array.from({ length: 1000 }, (_, i) => i + 1).map(value => (
-                  <option key={value} value={value}>{value}</option>
-                ))}
-              </select> TL&emsp;
-              Kazanç: <strong>{totalOdds * misli} TL</strong>
+              <ul className='options'>
+                <li>Toplam Oran: <strong>{totalOdds.toFixed(2)} TL</strong></li>
+                <li>Misli: <select value={misli} onChange={handleMisliChange}> {Array.from({ length: 1000 }, (_, i) => i + 1).map(value => ( <option key={value} value={value}>{value}</option>))}</select> TL</li>
+                <li>Kazanç: <strong>{(totalOdds * misli).toFixed(2)} TL</strong></li>
+              </ul>
             </li>
           </ul>
         </div>

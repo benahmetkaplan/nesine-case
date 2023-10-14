@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap&subset=latin-ext');
 
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
 body{
   background: #28616b;
   font-family: 'Ubuntu', sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 p,h1,h2,h3,h4{
@@ -27,7 +33,7 @@ h3, p{
 .match {
   margin: 10px 0;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 25px;
   border-radius: 10px;
   background: white;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
@@ -40,7 +46,7 @@ h3, p{
 
 .odds button {
   flex: 1;
-  margin: 5px;
+  margin: 5px 0;
   border: 0;
   background: #204e57;
   border-radius: 5px;
@@ -49,6 +55,10 @@ h3, p{
   transition: all .1s ease-in-out;
   color: white;
   font-family: 'Ubuntu', sans-serif;
+}
+
+.odds button + button{
+  margin-left: 5px;
 }
 
 .odds button:hover{
@@ -108,4 +118,96 @@ button.load-more-btn:hover{
 
 .bet-types .bet-type {
   width: 100%;
+}
+
+.bet-type + .bet-type{
+  margin-left: 10px;
+}
+
+.selected-matches ul.options {
+  display: flex;
+  padding-top: 15px;
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.selected-matches ul.options select {
+  background: #ccc;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 3px;
+}
+
+.selected-matches ul.options strong{
+  margin-left: 3px;
+}
+
+.selected-matches ul.options li {
+  display: flex;
+  align-items: center;
+}
+
+.selected-matches ul.options li + li {
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 900px){
+  .bet-types {
+    flex-direction: column;
+  }
+  
+  .bet-type + .bet-type {
+    margin-top: 5px;
+  }
+
+  .match {
+    padding: 10px;
+  }
+
+  .odds button {
+    font-size: 12px;
+    padding: 7px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+  h3 {
+    font-size: 15px;
+    margin-bottom: 0 !important;
+  }
+
+  button.load-more-btn{
+    font-size: 17px;
+  }
+
+  .selected-matches {
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  li {
+    font-size: 12px;
+  }
+
+  .bet-type + .bet-type{
+    margin-left: 0;
+  }
+
+  .selected-matches > ul {
+    overflow: auto;
+    max-height: 150px;
+  }
 }
