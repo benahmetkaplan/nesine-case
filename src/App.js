@@ -6,6 +6,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [misli, setMisli] = useState(1);
   const perPage = 10;
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleMisliChange = (event) => {
     setMisli(Number(event.target.value));
@@ -16,6 +17,7 @@ function App() {
   }, []);
 
   const loadMoreData = () => {
+    setIsLoading(true);
     fetch(`https://nesine-case-study.onrender.com/bets`)
       .then(response => response.json())
       .then(data => {
@@ -25,6 +27,9 @@ function App() {
       })
       .catch(error => {
         console.error("Veri çekerken hata oluştu:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -47,29 +52,31 @@ function App() {
   return (
     <div className="container">
       { matches.map(match => (
-          <div key={match.NID} className="match">
-            <h2>{match.N}</h2>
-            <p>{match.DAY}, {match.D} {match.T}</p>
-            <p>Lig: {match.LN}</p>
-            <div className="bet-types">
-              {Object.values(match.OCG).map(betType => (
-                <div key={betType.ID} className="bet-type">
-                  <h3>{betType.N}</h3>
-                  <div className="odds">
-                    {Object.values(betType.OC).map(odd => (
-                      <button
-                        onClick={() => selectOdd(match.NID, odd.O)}
-                        className={match.selectedOdd === odd.O ? 'selected' : ''}
-                        key={odd.ID}>
-                        {odd.N}: {odd.O}
-                      </button>
-                    ))}
-                  </div>
+        <div key={match.NID} className="match">
+          <h2>{match.N}</h2>
+          <p>{match.DAY}, {match.D} {match.T}</p>
+          <p>Lig: {match.LN}</p>
+          <div className="bet-types">
+            {Object.values(match.OCG).map(betType => (
+              <div key={betType.ID} className="bet-type">
+                <h3>{betType.N}</h3>
+                <div className="odds">
+                  {Object.values(betType.OC).map(odd => (
+                    <button
+                      onClick={() => selectOdd(match.NID, odd.O)}
+                      className={match.selectedOdd === odd.O ? 'selected' : ''}
+                      key={odd.ID}>
+                      {odd.N}: {odd.O}
+                    </button>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
       ))}
+
+      {isLoading && (<div className='loader'><div className='spinner'></div></div>)}
       
       <button className='load-more-btn' onClick={loadMoreData}>Daha Fazla Yükle</button>
 
